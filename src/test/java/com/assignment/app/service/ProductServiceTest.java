@@ -14,9 +14,9 @@ class ProductServiceTest {
 
         // Given
         ArrayList <String> input = new ArrayList();
-        input.add("1 book");
-        input.add("1 music CD");
-        input.add("1 chocolate bar");
+        input.add("1 book at 12.49");
+        input.add("1 music CD at 14.99");
+        input.add("1 chocolate bar at 0.85");
 
         // When
         String checkoutOutput = productService.checkout(input);
@@ -34,8 +34,8 @@ class ProductServiceTest {
 
         // Given
         ArrayList <String> input = new ArrayList();
-        input.add("1 imported box of chocolates");
-        input.add("1 imported bottle of perfume");
+        input.add("1 imported box of chocolates at 10.00");
+        input.add("1 imported bottle of perfume at 47.50");
 
         // When
         String checkoutOutput = productService.checkout(input);
@@ -53,10 +53,10 @@ class ProductServiceTest {
 
         // Given
         ArrayList <String> input = new ArrayList();
-        input.add("1 imported bottle of perfume");
-        input.add("1 bottle of perfume");
-        input.add("1 packet of headache pills");
-        input.add("1 imported box of chocolates");
+        input.add("1 imported bottle of perfume at 27.99");
+        input.add("1 bottle of perfume at 18.99");
+        input.add("1 packet of headache pills at 9.75");
+        input.add("1 imported box of chocolates at 11.25");
 
         // When
         String checkoutOutput = productService.checkout(input);
