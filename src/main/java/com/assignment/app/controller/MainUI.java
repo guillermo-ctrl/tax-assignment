@@ -9,14 +9,13 @@ public class MainUI {
 
         ProductService productService = new ProductService();
         boolean keepRunning = true;
-
+        ArrayList <String> productList = new ArrayList();
         try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
 
             while (keepRunning) {
                 try {
                     System.out.println("Enter a product or write checkout");
                     String selection = scanner.nextLine();
-                    ArrayList <String> productList = new ArrayList();
                     switch (selection.toLowerCase()) {
 
                         case "checkout":

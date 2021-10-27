@@ -34,6 +34,11 @@ public class ProductService {
     }
 
     public String checkout(ArrayList<String> productList) {
+
+        if (productList.isEmpty()) {
+            return "You need to add a product";
+        }
+
         StringBuilder outputString = new StringBuilder();
         double totalPrice = 0;
         double salesTaxes = 0;
