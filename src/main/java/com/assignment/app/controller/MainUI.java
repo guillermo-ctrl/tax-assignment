@@ -17,7 +17,7 @@ public class MainUI {
                     System.out.println("Enter a product or write checkout");
                     String selection = scanner.nextLine();
                     ArrayList <String> productList = new ArrayList();
-                    switch (selection) {
+                    switch (selection.toLowerCase()) {
 
                         case "checkout":
                             System.out.println(productService.checkout(productList));
