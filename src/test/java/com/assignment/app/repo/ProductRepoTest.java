@@ -44,7 +44,19 @@ class ProductRepoTest {
         boolean check = productRepo.checkIfProductExists(product);
 
         // Then
-        assertEquals(check,true);
+        assertEquals(true,check);
+    }
+
+    @Test
+    void productCheckDoesExist2() {
+        // Given
+        String product = "book";
+
+        // When
+        boolean check = productRepo.checkIfProductExists(product);
+
+        // Then
+        assertEquals(true, check);
     }
 
 }
