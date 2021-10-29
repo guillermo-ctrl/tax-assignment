@@ -22,16 +22,12 @@ public class MainUI {
                             System.out.println(productService.checkout(productList));
                             keepRunning = false;
                         default:
-                            if (productService.checkIfExists(selection)) {
-                                productList.add(selection);
-                            }
+                            productList.add(selection);
                             break;
-
                     }
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-
                 }
             }
         }
