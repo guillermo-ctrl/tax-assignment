@@ -8,6 +8,7 @@ public class ProductService {
     ProductCheck productCheck = new ProductCheck();
     StringExtractor stringExtractor = new StringExtractor();
     InputLineReformat inputLineReformat = new InputLineReformat();
+    DecimalFormat twoDecimals = new DecimalFormat("0.00");
 
     public String checkout(ArrayList<String> productList) {
 
@@ -20,24 +21,23 @@ public class ProductService {
         double salesTaxes = 0;
 
         for (String product : productList) {
-           outputString.append(inputLineReformat.toOutput(product));
-           totalPrice += stringExtractor.price(product);
+            double productPrice = stringExtractor.price(product);
+            String productName = stringExtractor.name(product);
+            outputString.append(inputLineReformat.toOutput(product));
 
-           if (productCheck.tax(stringExtractor.name(product))) {
-               double taxAmount = stringExtractor.price(product)*0.10;
-               salesTaxes += taxAmount;
+            totalPrice += productPrice;
 
-           }
-            if(productCheck.imported(product).length() > 0) {
-                salesTaxes += stringExtractor.price(product)*0.05;
-
+            if (productCheck.tax(productName)) {
+                double taxAmount = productPrice*0.10;
+                salesTaxes += taxAmount;
             }
+             if(productCheck.imported(product).length() > 0) {
+                 salesTaxes += productPrice*0.05;
+             }
         }
 
-        DecimalFormat twoDecimals = new DecimalFormat("0.00");
-
         salesTaxes = Math.ceil(salesTaxes * 20) / 20.0;
-        totalPrice = totalPrice + salesTaxes;
+        totalPrice += salesTaxes;
         outputString
                 .append("> Sales Taxes: ")
                 .append(twoDecimals.format(salesTaxes).replace(",","."))
@@ -45,8 +45,6 @@ public class ProductService {
                 .append("> Total: ")
                 .append(twoDecimals.format(totalPrice).replace(",","."));
 
-
         return outputString.toString();
     }
-
 }
