@@ -70,47 +70,4 @@ class ProductServiceTest {
                 "> Total: 74.68", checkoutOutput);
     }
 
-    @Test
-    public void checkIfNonExistingProductExists() {
-
-        // Given
-        String nonExistingProduct = "doesNotExist";
-
-        // When
-        boolean productCheck = productService.checkIfExists(nonExistingProduct);
-
-        // Then
-        assertEquals(productCheck, false);
-
-    }
-
-    @Test
-    public void checkIfExistingProductExists() {
-
-        // Given
-        String existingProduct1 = "bottle of perfume";
-        String existingProduct2 = "headache pills";
-        String existingProduct3 = "box of chocolates";
-        String existingProduct4 = "book";
-        String existingProduct5 = "music CD";
-        String existingProduct6 = "chocolate bar";
-
-        // When
-        boolean productCheck1 = productService.checkIfExists(existingProduct1);
-        boolean productCheck2 = productService.checkIfExists(existingProduct2);
-        boolean productCheck3 = productService.checkIfExists(existingProduct3);
-        boolean productCheck4 = productService.checkIfExists(existingProduct4);
-        boolean productCheck5 = productService.checkIfExists(existingProduct5);
-        boolean productCheck6 = productService.checkIfExists(existingProduct6);
-
-        // Then
-        assertEquals(productCheck1, true);
-        assertEquals(productCheck2, true);
-        assertEquals(productCheck3, true);
-        assertEquals(productCheck4, true);
-        assertEquals(productCheck5, true);
-        assertEquals(productCheck6, true);
-
-    }
-
 }
