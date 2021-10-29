@@ -5,67 +5,9 @@ import java.util.ArrayList;
 
 public class ProductService {
 
-
-    private String importCheck(String line) {
-        if(line.contains("imported")) {
-            return " imported ";
-        }
-        return "";
-    }
-
-    private String extractProductName(String line) {
-        return line
-                .replaceAll("\\d","") // Remove digits
-                .replace(" at ", "") // Remove "at"
-                .replace(" imported ", "") // Remove "imported"
-                .replace(".", ""); // Remove the dot
-    }
-
-    private double extractProductPrice(String line) {
-        String priceString = line.substring(line.indexOf("at ")+3, line.length());
-        return new Double(priceString);
-    }
-
-    private boolean checkIfTaxesApply(String productName) {
-        String name = productName.toLowerCase().trim();
-        if (name.contains("perfume") || name.contains("music")) {
-            return true;
-        }
-        return false;
-    }
-
-    private String changeProductInputFormat(String line) {
-
-        char numberOfProducts = line.charAt(0);
-        String productName = extractProductName(line);
-        String imported = importCheck(line);
-        double price = extractProductPrice(line);
-
-        if (imported.length() > 0) {
-            if (checkIfTaxesApply(productName)) {
-                double tax = price * 0.15;
-                tax = Math.round(tax * 20) / 20.0;
-                price += tax;
-
-            }
-
-            else {
-                double tax = price * 0.05;
-                tax = Math.ceil(tax * 20) / 20.0;
-                price += tax;
-
-            }
-        }
-        else if (checkIfTaxesApply(productName)) {
-
-            price += price * 0.10;
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-
-
-
-        return "> " + numberOfProducts + imported + productName + ": " + decimalFormat.format(price).replaceAll(",",".") + "\n";
-    }
+    ProductCheck productCheck = new ProductCheck();
+    StringExtractor stringExtractor = new StringExtractor();
+    InputLineReformat inputLineReformat = new InputLineReformat();
 
     public String checkout(ArrayList<String> productList) {
 
@@ -78,16 +20,16 @@ public class ProductService {
         double salesTaxes = 0;
 
         for (String product : productList) {
-           outputString.append(changeProductInputFormat(product));
-           totalPrice += extractProductPrice(product);
+           outputString.append(inputLineReformat.toOutput(product));
+           totalPrice += stringExtractor.price(product);
 
-           if (checkIfTaxesApply(extractProductName(product))) {
-               double taxAmount = extractProductPrice(product)*0.10;
+           if (productCheck.tax(stringExtractor.name(product))) {
+               double taxAmount = stringExtractor.price(product)*0.10;
                salesTaxes += taxAmount;
 
            }
-            if(importCheck(product).length() > 0) {
-                salesTaxes += extractProductPrice(product)*0.05;
+            if(productCheck.imported(product).length() > 0) {
+                salesTaxes += stringExtractor.price(product)*0.05;
 
             }
         }
