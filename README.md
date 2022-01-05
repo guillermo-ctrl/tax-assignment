@@ -1,7 +1,3 @@
-Please also add a file that gives us hints on how to build it, and the assumptions that you
-made.
-
-
 # Tax assignment
 
 ## Project information
